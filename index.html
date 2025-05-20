@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ed.ml3.ee</title>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<style type="text/css">
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  body, html {
+/*    font-family: Verdana;*/
+/*    font-size: 9pt;*/
+    overflow: hidden;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  #app {
+    max-width: 1380px;
+    margin: 0 auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+  }
+
+  .grid-pane {
+    padding: 1em;
+  }
+
+  #log {
+    overflow-y: scroll;
+    font-size: 9pt;
+  }
+
+  #log p {
+    padding: 0.2rem;
+  }
+</style>
+
+</head>
+<body>
+
+<div id="app">
+  <div class="grid">
+    <div class="grid-pane" id="left-pane">
+      <h5>Time of Day</h5>
+      <div class="well well-small">
+        <h4 id="clock">00:00</h4>
+      </div>
+
+      <h5>Info</h5>
+      <table class="table table-condensed table-bordered">
+        <tr>
+          <td>Doctors at Work</td>
+          <td id="daw">10</td>
+        </tr>
+        <tr>
+          <td>Patients Waiting</td>
+          <td id="pw">0</td>
+        </tr>
+        <tr>
+          <td>Admissions Per Hour</td>
+          <td id="aph">0</td>
+        </tr>
+        <tr>
+          <td>Deaths Per Hour</td>
+          <td id="dph">0</td>
+        </tr>
+        <tr>
+          <td>Total Admissioned</td>
+          <td id="ta">0</td>
+        </tr>
+        <tr>
+          <td>Total Dead</td>
+          <td id="td">0</td>
+        </tr>
+        <tr>
+          <td>Revenue Per Hour</td>
+          <td id="rph">$0.00</td>
+        </tr>
+        <tr>
+          <td>Total Revenue</td>
+          <td id="tr">$0.00</td>
+        </tr>
+      </table>
+
+      <h5>Log</h5>
+      <p id="log"></p>
+    </div>
+
+    <div class="grid-pane" id="mid-pane">
+      <h5>Emergency Department Waiting Room</h5>
+      <table class="table table-hover table-striped">
+        <tr>
+          <td>Patient</td>
+          <td>Condition</td>
+          <td>Level</td>
+          <td>Wait Time</td>
+        </tr>
+        <tbody id="waitingroom">
+          
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-pane" id="right-pane">
+      <h5>Triage Levels</h5>
+      <table class="table table-condensed">
+        <tr>
+          <td>#</td>
+          <td>Level</td>
+          <td>ETA</td>
+        </tr>
+        <tr class="error">
+          <td>1</td>
+          <td>Critical, life-threatening</td>
+          <td id="eta1">1 min</td>
+        </tr>
+        <tr class="error">
+          <td>2</td>
+          <td>Critical</td>
+          <td id="eta2">15 min</td>
+        </tr>
+        <tr class="warning">
+          <td>3</td>
+          <td>Potentially critical</td>
+          <td id="eta3">60 min</td>
+        </tr>
+        <tr class="success">
+          <td>4</td>
+          <td>Non-critical</td>
+          <td id="eta4">180 min</td>
+        </tr>
+        <tr class="info">
+          <td>5</td>
+          <td>Non-critical</td>
+          <td id="eta5">360 min</td>
+        </tr>
+      </table>
+
+
+      <h5>Controls</h5>
+      <p>...</p>
+    </div>
+  </div>
+</div>
+
+<script src="jquery-1.12.4.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="data.js"></script>
+<script src="draw.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
