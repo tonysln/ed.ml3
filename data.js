@@ -1,4 +1,4 @@
-const names = ['Jaak', 'Maria', 'Mirjam', 'Jaan', 'Abkhad', 'Valdar', 'Aljona', 'Max', 'Semjon',
+const names = ['Jaak', 'Maria', 'Mirjam', 'Jaan', 'Abkhad', 'Valdar', 'Aljona', 'Max', 'Semjon','Anton',
                'Vladlen', 'Lilita', 'Joonas', 'Krista', 'Marina', 'Robert', 'Georg',
                'Andrew', 'Ulrich', 'Henri', 'Nina', 'Ella', 'Elen'];
 
