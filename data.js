@@ -2,6 +2,8 @@ const names = ['Jaak', 'Maria', 'Mirjam', 'Jaan', 'Abkhad', 'Valdar', 'Aljona', 
                'Vladlen', 'Lilita', 'Joonas', 'Krista', 'Marina', 'Robert', 'Georg',
                'Andrew', 'Ulrich', 'Henri', 'Nina', 'Ella', 'Elen'];
 
+const classes = ['Hobo', 'Poor', 'Worker', 'Nobility', 'Cryptobro'];
+
 const conds = [null, 
     ['Stroke', 'No limbs', 'Heart explosion', 'Smashed brain'], 
     ['Ebola', 'Necrosis', 'Lung shot'], 

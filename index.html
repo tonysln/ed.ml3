@@ -20,7 +20,7 @@
   }
 
   #app {
-    max-width: 1380px;
+    max-width: 1490px;
     margin: 0 auto;
   }
 
@@ -36,11 +36,14 @@
   #log {
   	height: 100px;
     overflow-y: scroll;
-    font-size: 9pt;
+    font-family: monospace;
+    font-size: 8pt;
+    border: 1px solid #ddd;
   }
 
   #log p {
-    padding: 0.2rem;
+    padding: 0.1rem;
+    margin: 0;
   }
 </style>
 
@@ -96,10 +99,14 @@
           <td>Total Revenue</td>
           <td id="tr">$0.00</td>
         </tr>
+        <tr>
+          <td>Total Upgrades</td>
+          <td id="tu">0</td>
+        </tr>
       </table>
 
       <h5>Log</h5>
-      <p id="log"></p>
+      <div id="log" class=""></div>
     </div>
 
     <div class="grid-pane" id="mid-pane">
@@ -107,6 +114,7 @@
       <table class="table table-hover table-striped">
         <tr>
           <td>Patient</td>
+          <td>Class</td>
           <td>Condition</td>
           <td>Level</td>
           <td>Wait Time</td>

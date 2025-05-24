@@ -22,12 +22,16 @@ let state = {
   'speed': 10000,
   'hour': 12,
   'min': 0,
-  'stats': { 'aph': 0, 'dph': 0, 'ta': 0,'td': 0, 'rph': 0, 'tr': 0 },
-  'etas': [...etas]
+  'stats': { 'aph': 0, 'dph': 0, 'ta': 0,'td': 0, 'rph': 0, 'tr': 0, 'tu': 0},
+  'etas': [...etas],
+  'upgrade_price': 75.0
 };
 
 // todo:
 // - popups / log to register previous events
+// - NB! calculate avg waiting time for each ETA to compare with traditional/expected system
+// - "airplane boarding system": instead of bumping up your level you have different docs for different levels/classes
+// ie the poor people doctor vs nobility only doc
 
 function tick() {
   // Update existing patients
@@ -38,7 +42,6 @@ function tick() {
     let lvl = p['level'];
     let mw = state['etas'][lvl];
     if (p['wait'] >= mw) {
-      console.log('discharging:',p,mw);
       state['patients'].splice(i, 1);
 
       // Most get admitted but slight chance to be sent home, esp. for higher levels
@@ -49,9 +52,20 @@ function tick() {
         writeToLog(`Admitted: ${p['name']} with ${p['condition']}.`);
       }
     }
-    // else if 'wait' too long, die
+    // else if 'wait' too long (ie 1.6x of nominal time), die
+    
+    // If class allows it, pay to bump up the level! Suck it, poor people!
+    const pcls = p['class'];
+    const upp = state['upgrade_price'];
+    if (lvl >= 3 && pcls >= 3 && Math.random() > 0.8 && p['cash'] >= upp) { 
+      // TODO follow new distribution, similar to wrand() actually
+      state['patients'][i]['level'] -= 1;
+      state['patients'][i]['cash'] -= upp;
+      state['stats']['tr'] += upp;
+      state['stats']['tu'] += 1;
+      writeToLog(`Upgraded: ${p['name']} from ${lvl} to ${lvl-1}.`);
+    }
   }
-
 
   // Randomly create new patient
 
@@ -59,11 +73,16 @@ function tick() {
   // introduce random events that last X hours 
   if (Math.random() > 0.7) {
     const lvl = wrand();
+    const pclass = Math.floor(classes.length * Math.random()); // TODO realistic distribution, Gauss should suffice
+    const pcash = state['upgrade_price'] * 0.5 * pclass;
+
     state['patients'].unshift({
       'name': names[Math.floor(names.length * Math.random())],
+      'class': pclass,
       'condition': conds[lvl][Math.floor(conds[lvl].length * Math.random())],
       'level': lvl,
-      'wait': 0
+      'wait': 0,
+      'cash': pcash // to limit the amount of upgrades per patient
     });
 
     // Update eta

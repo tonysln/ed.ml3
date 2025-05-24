@@ -15,6 +15,7 @@ function drawPatientsTable(state) {
     const p = state['patients'][i];
     const tr = $('<tr></tr>');
     tr.append($('<td></td>', {text: p['name']}));
+    tr.append($('<td></td>', {text: classes[p['class']]}));
     tr.append($('<td></td>', {text: p['condition']}));
     const lvl = p['level'];
     tr.append($('<td></td>').append($('<span></span>', {text: lvl, 'class': 'badge ' + lb[lvl]})));
@@ -31,7 +32,7 @@ function drawChange(p, c) {
   return '';
 }
 
-// TODO graphs 
+// TODO graphs !!
 function drawStats(state) {
   const pdaw = $("#daw").text();
   const cdaw = state['doctors'][state['hour']];
@@ -45,8 +46,9 @@ function drawStats(state) {
   $("#td").text(state['stats']['td']);
   $("#aph").text(state['stats']['aph']);
   $("#dph").text(state['stats']['dph']);
-  $("#rph").text(state['stats']['rph']);
-  $("#tr").text(state['stats']['tr']);
+  $("#rph").text('$' + state['stats']['rph']);
+  $("#tr").text('$' + state['stats']['tr']);
+  $("#tu").text(state['stats']['tu']);
 
   $("#clock").text(state['hour'].toString().padStart(2, '0') + ':' + state['min'].toString().padStart(2, '0'))
 
@@ -71,6 +73,7 @@ $('.speed-btn').on('click', function () {
 
 function writeToLog(str) {
   log.append($('<p></p>', {text: str}))
+  log.scrollTop(function() { return this.scrollHeight; });
 }
 
 
