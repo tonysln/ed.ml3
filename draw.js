@@ -55,6 +55,20 @@ function drawStats(state) {
   }
 }
 
+$('.speed-btn').on('click', function () {
+  $('.speed-btn').removeClass('btn-success').addClass('btn-secondary');
+
+  $(this).removeClass('btn-secondary').addClass('btn-success');
+
+  const speedMap = {
+    'speed-1x': 10000,
+    'speed-2x': 5000,
+    'speed-40x': 250
+  };
+  const id = $(this).attr('id');
+  state['speed'] = speedMap[id];
+});
+
 function writeToLog(str) {
   log.append($('<p></p>', {text: str}))
 }
