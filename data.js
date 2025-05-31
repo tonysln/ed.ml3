@@ -11,3 +11,5 @@ const conds = [null,
     ['Fever', 'Diarrhea (violent)', 'Heart palpilations', 'Skin damage', 'Mania (light)'], 
     ['Tummy ache', 'Sore throat', 'Slight fever', 'Leg pain', 'Pain', 'Diarrhea', 'Gas']
   ];
+
+const stat = [null];

@@ -17,7 +17,7 @@ const tick_min = 10; // In-game minutes per tick
 
 let state = {
   'doctors': [...doctimes],
-  'patients': [], // {'name/id', 'condition', 'class', 'level', 'wait'}
+  'patients': [], // {'name/id', 'condition', 'class', 'level', 'wait', 'status'}
   'pbl': [null, 0, 0, 0, 0, 0],
   'speed': 10000,
   'hour': 12,
@@ -40,19 +40,39 @@ function tick() {
 
     let p = state['patients'][i];
     let lvl = p['level'];
-    let mw = state['etas'][lvl];
-    if (p['wait'] >= mw) {
-      state['patients'].splice(i, 1);
+    let mw = state["etas"][lvl];
+    if (p["wait"] >= mw) {
+      state["patients"].splice(i, 1);
 
+      // else if 'wait' too long (ie 1.6x of nominal time), die
+      if (
+        lvl == 1 &&
+        p["wait"] >= mw * 30
+      ) {
+        state["stats"]["td"] += 1;
+        p["stat"] = "died";
+        console.log('died level 1')
+        writeToLog(`Died: ${p["name"]} with ${p["condition"]} after waiting ${p["wait"]} minutes. Wait time was ${mw}`);
+      }
+      else if (
+        lvl >= 2 &&
+        p["wait"] >= mw * 1.6
+      ) {
+        state["stats"]["td"] += 1;
+        p["stat"] = "died";
+        console.log('died')
+        writeToLog(`Died: ${p["name"]} with ${p["condition"]} after waiting ${p["wait"]} minutes. Wait time was ${mw}`);
+      }
       // Most get admitted but slight chance to be sent home, esp. for higher levels
-      if (lvl >= 4 && Math.random() > 0.75) {
-        writeToLog(`Sent home: ${p['name']} with ${p['condition']}.`);
-      } else {
-        state['stats']['ta'] += 1;
-        writeToLog(`Admitted: ${p['name']} with ${p['condition']}.`);
+      if (lvl >= 4 && Math.random() > 0.75 && p['stat'] != "died") {
+        p["stat"] = "sent home";
+        writeToLog(`Sent home: ${p["name"]} with ${p["condition"]}.`);
+      } else if (p['stat'] != "died"){
+        state["stats"]["ta"] += 1;
+        p["stat"] = "admitted";
+        writeToLog(`Admitted: ${p["name"]} with ${p["condition"]}.`);
       }
     }
-    // else if 'wait' too long (ie 1.6x of nominal time), die
     
     // If class allows it, pay to bump up the level! Suck it, poor people!
     const pcls = p['class'];
@@ -63,6 +83,7 @@ function tick() {
       state['patients'][i]['cash'] -= upp;
       state['stats']['tr'] += upp;
       state['stats']['tu'] += 1;
+      p['stat'] = "upgraded"
       writeToLog(`Upgraded: ${p['name']} from ${lvl} to ${lvl-1}.`);
     }
   }
@@ -82,7 +103,8 @@ function tick() {
       'condition': conds[lvl][Math.floor(conds[lvl].length * Math.random())],
       'level': lvl,
       'wait': 0,
-      'cash': pcash // to limit the amount of upgrades per patient
+      'cash': pcash, // to limit the amount of upgrades per patient
+      'status': stat 
     });
 
     // Update eta
