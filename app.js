@@ -51,7 +51,6 @@ function tick() {
       ) {
         state["stats"]["td"] += 1;
         p["stat"] = "died";
-        console.log('died level 1')
         writeToLog(`Died: ${p["name"]} with ${p["condition"]} after waiting ${p["wait"]} minutes. Wait time was ${mw}`);
       }
       else if (
@@ -60,7 +59,6 @@ function tick() {
       ) {
         state["stats"]["td"] += 1;
         p["stat"] = "died";
-        console.log('died')
         writeToLog(`Died: ${p["name"]} with ${p["condition"]} after waiting ${p["wait"]} minutes. Wait time was ${mw}`);
       }
       // Most get admitted but slight chance to be sent home, esp. for higher levels
