@@ -58,9 +58,9 @@ function drawStats(state) {
 }
 
 $('.speed-btn').on('click', function () {
-  $('.speed-btn').removeClass('btn-success').addClass('btn-secondary');
+  $('.speed-btn').removeClass('btn-success animate__animated animate__pulse').addClass('btn-secondary');
 
-  $(this).removeClass('btn-secondary').addClass('btn-success');
+  $(this).removeClass('btn-secondary').addClass('btn-success  animate__animated animate__pulse');
 
   const speedMap = {
     'speed-1x': 10000,
