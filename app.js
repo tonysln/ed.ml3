@@ -45,6 +45,7 @@ function tick() {
       state["patients"].splice(i, 1);
 
       // else if 'wait' too long (ie 1.6x of nominal time), die
+      // todo: if someone gets an upgrade their risk of dying should not go up. currently a bug. 
       if (
         lvl == 1 &&
         p["wait"] >= mw * 30
@@ -79,6 +80,7 @@ function tick() {
       // TODO follow new distribution, similar to wrand() actually
       state['patients'][i]['level'] -= 1;
       state['patients'][i]['cash'] -= upp;
+      state['patients'][i]['upgraded'] = true
       state['stats']['tr'] += upp;
       state['stats']['tu'] += 1;
       p['stat'] = "upgraded"
@@ -102,7 +104,8 @@ function tick() {
       'level': lvl,
       'wait': 0,
       'cash': pcash, // to limit the amount of upgrades per patient
-      'status': stat 
+      'status': stat, 
+      'upgraded': false
     });
 
     // Update eta
