@@ -71,6 +71,20 @@ $('.speed-btn').on('click', function () {
   state['speed'] = speedMap[id];
 });
 
+$('.kill_the_hobos').on('click', function () {
+
+  $(this).removeClass('btn-secondary').addClass('btn btn-danger animate__animated animate__pulse');
+
+  for (let i = 0; i < state['patients'].length; i++) {
+    const p = state['patients'][i];
+    p["stat"] = "killed";
+    console.log("test",p)
+  }
+
+  const id = $(this).attr('id');
+
+});
+
 function writeToLog(str) {
   log.append($('<p></p>', {text: str}))
   log.scrollTop(function() { return this.scrollHeight; });

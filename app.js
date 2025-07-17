@@ -41,6 +41,15 @@ function tick() {
     let p = state['patients'][i];
     let lvl = p['level'];
     let mw = state["etas"][lvl];
+
+    //kill the hobos
+    if(p["stat"] == "killed" && (p["class"]!='Nobility' || p["class"]!='Cryptobro')){
+    	state["stats"]["td"] += 1;
+    	writeToLog(`Killed: ${p["name"]} with ${p["condition"]}`);
+    	state["patients"].splice(i, 1);
+    	drawPatientsTable(state);
+    }
+
     if (p["wait"] >= mw) {
       state["patients"].splice(i, 1);
 
