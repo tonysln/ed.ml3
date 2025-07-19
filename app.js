@@ -15,6 +15,8 @@ const etas = [null, 1, 15, 60, 120, 300]; // default ETAs
 const eta_div = 5;  // ETA calculation divisor for each new patient
 const tick_min = 10; // In-game minutes per tick
 
+const hist_size = 100;
+
 let state = {
   'doctors': [...doctimes],
   'patients': [], // {'name/id', 'condition', 'class', 'level', 'wait', 'status'}
@@ -26,6 +28,7 @@ let state = {
   'etas': [...etas],
   'upgrade_price': 75.0
 };
+state['hist'] = Object.fromEntries(Object.keys(state.stats).map(k => [k, []]));
 
 // todo:
 // - popups / log to register previous events
@@ -136,6 +139,14 @@ function tick() {
   // Update ETAs
   for (let i = 1; i < state['etas'].length; i++) {
     state['etas'][i] = Math.round(etas[i] + etas[i]*state['pbl'][i] / eta_div / state['doctors'][state['hour']]);
+  }
+
+  // Update histogram info
+  for (const stat of Object.keys(state.stats)) {
+    state.hist.stat.push(state.stats.stat);
+    if (state.hist.stat.length > hist_size) {
+      state.hist.stat.shift();
+    }
   }
 
   drawStats(state);
