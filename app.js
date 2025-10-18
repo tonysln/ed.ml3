@@ -143,9 +143,9 @@ function tick() {
 
   // Update histogram info
   for (const stat of Object.keys(state.stats)) {
-    state.hist.stat.push(state.stats.stat);
-    if (state.hist.stat.length > hist_size) {
-      state.hist.stat.shift();
+    state.hist[stat].push(state.stats[stat]);
+    if (state.hist[stat].length < hist_size) {
+      state.hist[stat].shift();
     }
   }
 
