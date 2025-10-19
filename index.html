@@ -60,6 +60,31 @@
     background-color: #888888 !important;
     color: rgb(1, 194, 1) !important;
   }
+
+#waitingroom-visual {
+  position: relative;
+  border: 2px solid #ccc;
+}
+
+#waitingroom-visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#patientCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* canvas won’t block interactions */
+}
+
+#tableContainer {
+  height: 250px;
+  overflow-y: scroll;
+}
 </style>
 
 </head>
@@ -125,6 +150,7 @@
 
     <div class="grid-pane" id="mid-pane">
       <h5>Emergency Department Waiting Room</h5>
+      <div id="tableContainer">
       <table class="table table-hover table-striped">
         <tr>
           <td>Patient</td>
@@ -137,6 +163,11 @@
           
         </tbody>
       </table>
+    </div>
+      <div id="waitingroom-visual">
+        <img src="bootstrap/img/room.jpg" alt="Room">
+        <canvas id="patientCanvas"></canvas>
+      </div>
     </div>
 
     <div class="grid-pane" id="right-pane">
