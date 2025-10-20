@@ -17,6 +17,11 @@ const tick_min = 10; // In-game minutes per tick
 
 const hist_size = 100;
 
+const canvas = document.getElementById('patientCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 500;
+canvas.height = 300;
+
 let state = {
   'doctors': [...doctimes],
   'patients': [], // {'name/id', 'condition', 'class', 'level', 'wait', 'status'}
@@ -122,6 +127,7 @@ function tick() {
 
     // Update eta
     state['pbl'][lvl] += 1;
+    drawPatients()
   }
 
   // Re-load patients table

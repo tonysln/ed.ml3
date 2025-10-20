@@ -117,4 +117,10 @@ function writeToLog(str) {
   log.scrollTop(function() { return this.scrollHeight; });
 }
 
-
+function drawPatients() {
+  const img = new Image();
+  img.src = 'bootstrap/img/pixel_guy.png';
+  const x = 50 + Math.random() * 400;
+  const y = 50 + Math.random() * 200;
+  ctx.drawImage(img, x, y);
+}
