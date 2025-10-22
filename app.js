@@ -127,7 +127,7 @@ function tick() {
 
     // Update eta
     state['pbl'][lvl] += 1;
-    drawPatients()
+    drawPatients(state['patients'].length);
   }
 
   // Re-load patients table
